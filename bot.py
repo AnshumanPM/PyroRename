@@ -2,6 +2,7 @@ import logging
 import logging.config
 from pyrogram import Client 
 from config import API_ID, API_HASH, BOT_TOKEN, FORCE_SUB
+from subprocess import Popen
 
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
@@ -41,6 +42,8 @@ class Bot(Client):
     async def stop(self, *args):
       await super().stop()      
       logging.info("Bot Stopped")
-        
+
+Popen("gunicorn app:app", shell=True)
+
 bot = Bot()
 bot.run()
